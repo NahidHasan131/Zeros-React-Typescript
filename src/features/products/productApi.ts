@@ -1,49 +1,60 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import type { Product } from './types'
+import type { Product, ProductsResponse } from './types'
 
+const BASE_URL = 'https://dummyjson.com/'
 
-const BASE_URL = 'https://fakestoreapi.com/'
-
+export interface Category {
+  slug: string
+  name: string
+  url: string
+}
 
 export const productApi = createApi({
   reducerPath: 'productApi',
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   tagTypes: ['Products'],
   endpoints: (builder) => ({
-    getProducts: builder.query<Product[], void>({
+    getProducts: builder.query<ProductsResponse, void>({
       query: () => 'products',
       providesTags: ['Products'],
     }),
+    getCategories: builder.query<Category[], void>({
+      query: () => 'products/categories',
+    }),
     getSingleProduct: builder.query<Product, number>({
-        query : (id) => `products/${id}`,
-
+      query: (id) => `products/${id}`,
     }),
-
-    addProduct: builder.mutation({
-        query: (product)=>({
-            url: '/products',
-            method: 'POST',
-            body: product
-        }),
+    addProduct: builder.mutation<Product, Omit<Product, 'id'>>({
+      query: (product) => ({
+        url: 'products/add',
+        method: 'POST',
+        body: product,
+      }),
       invalidatesTags: ['Products'],
     }),
-    updateProduct: builder.mutation({
-        query: ({id, ...product})=>({
-            url: `/products/${id}`,
-            method: 'PUT',
-            body: product
-        }),
+    updateProduct: builder.mutation<Product, Partial<Product> & { id: number }>({
+      query: ({ id, ...product }) => ({
+        url: `products/${id}`,
+        method: 'PUT',
+        body: product,
+      }),
       invalidatesTags: ['Products'],
     }),
-    deleteProduct: builder.mutation({
-        query: ({id})=>({
-            url: `/products/${id}`,
-            method: 'DELETE'
-        }),
+    deleteProduct: builder.mutation<{ id: number }, { id: number }>({
+      query: ({ id }) => ({
+        url: `products/${id}`,
+        method: 'DELETE',
+      }),
       invalidatesTags: ['Products'],
     }),
-  })
+  }),
 })
 
-
-export const { useGetProductsQuery, useAddProductMutation, useUpdateProductMutation, useDeleteProductMutation } = productApi
+export const {
+  useGetProductsQuery,
+  useGetCategoriesQuery,
+  useGetSingleProductQuery,
+  useAddProductMutation,
+  useUpdateProductMutation,
+  useDeleteProductMutation,
+} = productApi
