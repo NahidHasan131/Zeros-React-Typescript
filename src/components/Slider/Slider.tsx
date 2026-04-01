@@ -15,7 +15,7 @@ interface slide{
   btnColor: string
 }
 
-const slides:slide = [
+const slides: slide[] = [
   {
     bg: 'bg-[#f5f0e8]',
     img: 'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=500&q=80',

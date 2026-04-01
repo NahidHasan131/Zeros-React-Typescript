@@ -1,4 +1,7 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useGetCategoriesQuery } from "../../features/products/productApi";
+import type { Category as CategoryType } from "../../features/products/types";
 
 const categoryImages: Record<string, string> = {
   'beauty':              'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=90',
@@ -29,45 +32,82 @@ const categoryImages: Record<string, string> = {
 
 const fallback = 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=90';
 
-const Category = ({ limit }: { limit?: number }) => {
-    const { data: categories, isLoading, isError } = useGetCategoriesQuery();
+const PAGE_SIZE = 12;
 
-    if (isLoading) return <p>Loading...</p>;
-    if (isError) return <p>Something went wrong</p>;
+interface PaginationProps {
+  page: number
+  totalPages: number
+  onPageChange: (p: number) => void
+}
 
-    const list = limit ? categories?.slice(0, limit) : categories;
+function Pagination({ page, totalPages, onPageChange }: PaginationProps) {
+  if (totalPages <= 1) return null
+  return (
+    <div className="flex items-center justify-center gap-2 py-6">
+      <button className="btn btn-sm btn-ghost" onClick={() => onPageChange(page - 1)} disabled={page === 1}>«</button>
+      {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+        <button
+          key={p}
+          onClick={() => onPageChange(p)}
+          className={`btn btn-sm ${p === page ? 'btn-primary' : 'btn-ghost'}`}
+        >{p}</button>
+      ))}
+      <button className="btn btn-sm btn-ghost" onClick={() => onPageChange(page + 1)} disabled={page === totalPages}>»</button>
+    </div>
+  )
+}
 
-    return (
-        <div className="py-10">
-            <h2 className="text-[#001a2e] text-4xl font-black uppercase mb-6">Categories</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {list?.map((cat) => (
-                    <div key={cat.slug} className="relative overflow-hidden cursor-pointer group h-80">
-                        {/* image */}
-                        <img
-                            src={categoryImages[cat.slug] || fallback}
-                            alt={cat.name}
-                            className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500"
-                        />
-                        {/* dark overlay */}
-                        <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-500" />
-                        {/* text */}
-                        <div className="absolute inset-0 flex flex-col justify-end p-5">
-                            <span className="text-white text-xs font-semibold tracking-[3px] uppercase opacity-80">
-                                Explore
-                            </span>
-                            <h3 className="text-white text-xl font-black uppercase tracking-wide leading-tight">
-                                {cat.name}
-                            </h3>
-                            <span className="mt-2 text-white/70 text-xs underline underline-offset-4 group-hover:text-white transition-colors duration-300">
-                                Shop Now →
-                            </span>
-                        </div>
-                    </div>
-                ))}
+interface CategoryProps {
+  limit?: number
+}
+
+const Category = ({ limit }: CategoryProps) => {
+  const [page, setPage] = useState(1)
+  const { data: categories, isLoading, isError } = useGetCategoriesQuery()
+
+  if (isLoading) return <p>Loading...</p>
+  if (isError) return <p>Something went wrong</p>
+
+  // Home e limit prop dile slice, Categories page e pagination
+  const allItems: CategoryType[] = categories ?? []
+  const displayItems = limit
+    ? allItems.slice(0, limit)
+    : allItems.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+
+  const totalPages = limit ? 1 : Math.ceil(allItems.length / PAGE_SIZE)
+
+  return (
+    <div className="py-12">
+      <div  className="flex justify-between items-center mb-5">
+        <h2 className="text-[#001a2e] text-4xl font-black uppercase">Categories</h2>
+        {limit && (
+            <Link to="/categories" className="text-sm text-[#001a2e] mt-4 hover:underline hover:text-cyan-400 transition-colors duration-300  font-semibold">Show All →</Link>
+        )}
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {displayItems.map((cat) => (
+          <div key={cat.slug} className="relative overflow-hidden cursor-pointer group h-80">
+            <img
+              src={categoryImages[cat.slug] || fallback}
+              alt={cat.name}
+              className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-500" />
+            <div className="absolute inset-0 flex flex-col justify-end p-5">
+              <span className="text-white text-xs font-semibold tracking-[3px] uppercase opacity-80">Explore</span>
+              <h3 className="text-white text-xl font-black uppercase tracking-wide leading-tight">{cat.name}</h3>
+              <span className="mt-2 text-white/70 text-xs underline underline-offset-4 group-hover:text-white transition-colors duration-300">
+                Shop Now →
+              </span>
             </div>
-        </div>
-    );
-};
+          </div>
+        ))}
+      </div>
+
+      {!limit && <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />}
+    </div>
+  )
+}
 
 export default Category;

@@ -1,21 +1,18 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import type { Product, ProductsResponse } from './types'
+import type { Product, ProductsResponse, Category } from './types'
 
 const BASE_URL = 'https://dummyjson.com/'
 
-export interface Category {
-  slug: string
-  name: string
-  url: string
-}
+
 
 export const productApi = createApi({
   reducerPath: 'productApi',
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   tagTypes: ['Products'],
   endpoints: (builder) => ({
-    getProducts: builder.query<ProductsResponse, void>({
-      query: () => 'products',
+    getProducts: builder.query<ProductsResponse, { limit: number; skip: number } | void>({
+      query: (params) =>
+        params ? `products?limit=${params.limit}&skip=${params.skip}` : 'products',
       providesTags: ['Products'],
     }),
     getCategories: builder.query<Category[], void>({

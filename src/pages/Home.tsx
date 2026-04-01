@@ -1,4 +1,5 @@
 import Category from "../components/Category/Category";
+import Products from "../components/Products/Products";
 import Slider from "../components/Slider/Slider";
 
 const Home = () => {
@@ -6,6 +7,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-8 lg:px-4 space-y-10">
             <Slider/>
             <Category limit={4}/>
+            <Products limit={4}/>
         </div>
     );
 };
