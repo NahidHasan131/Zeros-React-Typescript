@@ -1,4 +1,6 @@
 import Category from "../components/Category/Category";
+import NewArrival from "../components/New-Arrival/NewArrival";
+import Newsletter from "../components/Newsletter/Newsletter";
 import Products from "../components/Products/Products";
 import Slider from "../components/Slider/Slider";
 
@@ -8,6 +10,8 @@ const Home = () => {
             <Slider/>
             <Category limit={4}/>
             <Products limit={4}/>
+            <NewArrival/>
+            <Newsletter/>
         </div>
     );
 };

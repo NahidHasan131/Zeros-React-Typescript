@@ -20,7 +20,6 @@ const ProductCard = ({ product }: Props) => {
         </button>
       </div>
 
-      {/* Line 1: brand + price */}
       <div className="mt-3 flex items-center gap-2">
         {brand && (
           <span className="text-[10px] font-bold text-white bg-red-500 px-1.5 py-0.5 rounded-sm uppercase tracking-wide">
@@ -30,7 +29,6 @@ const ProductCard = ({ product }: Props) => {
         <span className="ml-auto text-md font-bold text-[#001a2e]">${price.toFixed(2)}</span>
       </div>
 
-      {/* Line 2: title + stock */}
       <div className="mt-2 flex items-start justify-between gap-2">
         <h3 className="text-sm font-semibold text-gray-900 leading-snug line-clamp-1">{title}</h3>
         <span className={`text-xs font-semibold whitespace-nowrap ${stock > 0 ? 'text-blue-500' : 'text-red-400'}`}>

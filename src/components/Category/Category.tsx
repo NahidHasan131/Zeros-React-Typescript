@@ -81,7 +81,7 @@ const Category = ({ limit }: CategoryProps) => {
       <div  className="flex justify-between items-center mb-5">
         <h2 className="text-[#001a2e] text-4xl font-black uppercase">Categories</h2>
         {limit && (
-            <Link to="/categories" className="text-sm text-[#001a2e] mt-4 hover:underline hover:text-cyan-400 transition-colors duration-300  font-semibold">Show All →</Link>
+            <Link to="/categories" className="text-sm text-[#001a2e] mt-4 hover:underline hover:text-cyan-400 transition-colors duration-300  font-semibold">See All →</Link>
         )}
       </div>
 

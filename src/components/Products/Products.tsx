@@ -84,7 +84,7 @@ const Products = ({ limit }: Props) => {
         )}
         {limit && (
           <Link to="/product" className="text-sm text-[#001a2e] font-semibold hover:underline hover:text-cyan-400 transition-colors duration-300">
-            Show All →
+            See All →
           </Link>
         )}
       </div>

@@ -1,9 +1,23 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { IoSearchOutline, IoCloseOutline } from "react-icons/io5";
 
 const HomeNav = () => {
     const [searchOpen, setSearchOpen] = useState(false);
+    const { pathname } = useLocation();
+
+    const navLink = (to: string, label: string) => {
+        const isActive = pathname === to;
+        return (
+            <li>
+                <Link to={to}
+                    className={`text-[#001a2e] relative after:absolute after:bottom-0 after:left-[18%] after:h-0.5 after:transition-all after:duration-300 hover:bg-transparent
+                        ${isActive ? 'after:w-2/3 after:bg-cyan-400' : 'after:w-0 after:bg-cyan-400 hover:after:w-2/3'}`}>
+                    {label}
+                </Link>
+            </li>
+        );
+    };
     return (
         <div className="bg-base-100 shadow-sm sticky top-0 z-50">
             {/* Search overlay */}
@@ -36,11 +50,11 @@ const HomeNav = () => {
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 font-semibold">
-                        <li><Link to='/' className="text-[#001a2e] relative after:absolute after:bottom-0 after:left-[17%] after:h-0.5 after:w-0 after:bg-cyan-400 after:transition-all after:duration-300 hover:after:w-2/3 hover:bg-transparent">Home</Link></li>
-                        <li><a className="text-[#001a2e] relative after:absolute after:bottom-0 after:left-[17%] after:h-0.5 after:w-0 after:bg-cyan-400 after:transition-all after:duration-300 hover:after:w-2/3 hover:bg-transparent">About</a></li>
-                        <li><a className="text-[#001a2e] relative after:absolute after:bottom-0 after:left-[17%] after:h-0.5 after:w-0 after:bg-cyan-400 after:transition-all after:duration-300 hover:after:w-2/3 hover:bg-transparent">Contact</a></li>
-                        <li><Link to='/categories' className="text-[#001a2e] relative after:absolute after:bottom-0 after:left-[17%] after:h-0.5 after:w-0 after:bg-cyan-400 after:transition-all after:duration-300 hover:after:w-2/3 hover:bg-transparent">Category</Link></li>
-                        <li><Link to='product' className="text-[#001a2e] relative after:absolute after:bottom-0 after:left-[17%] after:h-0.5 after:w-0 after:bg-cyan-400 after:transition-all after:duration-300 hover:after:w-2/3 hover:bg-transparent">Products</Link></li>
+                        {navLink('/', 'Home')}
+                        {navLink('/product', 'Products')}
+                        {navLink('/categories', 'Category')}
+                        <li><a className="text-[#001a2e] relative after:absolute after:bottom-0 after:left-[18%] after:h-0.5 after:w-0 after:bg-cyan-400 after:transition-all after:duration-300 hover:after:w-2/3 hover:bg-transparent">About</a></li>
+                        <li><a className="text-[#001a2e] relative after:absolute after:bottom-0 after:left-[18%] after:h-0.5 after:w-0 after:bg-cyan-400 after:transition-all after:duration-300 hover:after:w-2/3 hover:bg-transparent">Contact</a></li>
                     </ul>
                 </div>
                 <div className="flex md:gap-5 gap-2">
@@ -62,7 +76,7 @@ const HomeNav = () => {
                             <span className="text-lg font-bold">8 Items</span>
                             <span className="text-info">Subtotal: $999</span>
                             <div className="card-actions">
-                                <button className="btn bg-orange-500 text-white rounded-full btn-block">View cart</button>
+                                <button className="btn bg-cyan-400 text-white rounded-full btn-block">View cart</button>
                             </div>
                             </div>
                         </div>
@@ -85,7 +99,7 @@ const HomeNav = () => {
                             </a>
                             </li>
                             <li><a>Settings</a></li>
-                            <li><a>Logout</a></li>
+                            <li><a>Log In</a></li>
                         </ul>
                     </div>
                 </div>
