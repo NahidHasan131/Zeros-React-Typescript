@@ -13,7 +13,7 @@ const Newsletter = () => {
   };
 
   return (
-    <div className="bg-[#e8f0f5] rounded-2xl px-8 md:px-16 py-16 flex flex-col md:flex-row items-center justify-between gap-8 my-10">
+    <div className="bg-[#e8f0f5] rounded-xl px-8 md:px-16 py-16 flex flex-col md:flex-row items-center justify-between gap-8 my-10">
       {/* Left content */}
       <div className="flex flex-col items-start text-left max-w-md">
         <span className="text-[#001a2e]/60 text-xs font-bold tracking-[4px] uppercase mb-2">Stay Updated</span>

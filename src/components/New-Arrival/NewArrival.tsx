@@ -3,9 +3,9 @@ import ProductBanner from '../../assets/Product-banner.png';
 const NewArrival = () => {
     return (
         <div className="flex justify-between items-center flex-col md:flex-row gap-5 pb-10">
-            <div className="md:w-5/12  bg-cyan-400 h-full rounded pt-5 pl-5 text-white hidden md:block">
+            <div className="md:w-5/12  bg-cyan-400 h-full rounded pt-5 pl-5 text-white/80 hidden md:block">
                 <div className='relative'>
-                    <h3 className="text-4xl font-black cursor-pointer text-white">Z <span className="text-2xl ">ze<span className="">ros</span></span></h3>
+                    <h3 className="text-4xl font-black cursor-pointer">Z <span className="text-2xl ">ze<span className="">ros</span></span></h3>
                     <div className="flex justify-between items-center py-14">
                         <h2 className="text-5xl font-bold leading-14 inline-block">
                             Your Style, <br />

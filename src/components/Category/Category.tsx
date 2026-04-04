@@ -77,9 +77,18 @@ const Category = ({ limit }: CategoryProps) => {
   const totalPages = limit ? 1 : Math.ceil(allItems.length / PAGE_SIZE)
 
   return (
-    <div className="py-12">
+    <div className="py-8">
       <div  className="flex justify-between items-center mb-5">
-        <h2 className="text-[#001a2e] text-4xl font-black uppercase">Categories</h2>
+        {limit ? (
+          <h2 className="text-[#001a2e] text-4xl font-black uppercase">Categories</h2>
+        ) : (
+          <div className="text-sm breadcrumbs">
+            <ul>
+              <li><Link to="/" className="text-[#001a2e] font-semibold">Home</Link></li>
+              <li className="text-gray-400 font-medium">Categories</li>
+            </ul>
+          </div>
+        )}
         {limit && (
             <Link to="/categories" className="text-sm text-[#001a2e] mt-4 hover:underline hover:text-cyan-400 transition-colors duration-300  font-semibold">See All →</Link>
         )}

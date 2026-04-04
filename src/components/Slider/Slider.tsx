@@ -56,7 +56,7 @@ const Slider = () => {
       autoplay={{ delay: 4000, disableOnInteraction: false }}
       mousewheel={true}
       modules={[Pagination, Autoplay, Mousewheel]}
-      className="mySwiper rounded-lg mt-10"
+      className="mySwiper rounded-lg mt-12 pb-6"
     >
       {slides.map((slide, i) => (
         <SwiperSlide key={i}>

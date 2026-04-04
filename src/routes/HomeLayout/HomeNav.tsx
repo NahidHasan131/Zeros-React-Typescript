@@ -39,10 +39,10 @@ const HomeNav = () => {
                         </div>
                         <ul tabIndex={-1} className="menu menu-sm dropdown-content text-[#001a2e] bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow font-semibold">
                             <li><Link to='/'>Home</Link></li>
-                            <li><a>About</a></li>
-                            <li><a>Contact</a></li>
+                            <li><Link to='/about'>About</Link></li>
+                            <li><Link to='/contact'>Contact</Link></li>
                             <li><Link to='/categories'>Category</Link></li>
-                            <li><Link to='product'>Products</Link></li>   
+                            <li><Link to='/product'>Products</Link></li>   
                         </ul>
                 </div>
                 <div className="">
@@ -53,11 +53,11 @@ const HomeNav = () => {
                         {navLink('/', 'Home')}
                         {navLink('/product', 'Products')}
                         {navLink('/categories', 'Category')}
-                        <li><a className="text-[#001a2e] relative after:absolute after:bottom-0 after:left-[18%] after:h-0.5 after:w-0 after:bg-cyan-400 after:transition-all after:duration-300 hover:after:w-2/3 hover:bg-transparent">About</a></li>
-                        <li><a className="text-[#001a2e] relative after:absolute after:bottom-0 after:left-[18%] after:h-0.5 after:w-0 after:bg-cyan-400 after:transition-all after:duration-300 hover:after:w-2/3 hover:bg-transparent">Contact</a></li>
+                        {navLink('/about', 'About')}
+                        {navLink('/contact', 'Contact')}
                     </ul>
                 </div>
-                <div className="flex md:gap-5 gap-2">
+                <div className="flex md:gap-4 gap-2">
                     {/* Search icon */}
                     <button onClick={() => setSearchOpen(true)} className="btn btn-ghost btn-circle">
                         <IoSearchOutline className="text-xl" />

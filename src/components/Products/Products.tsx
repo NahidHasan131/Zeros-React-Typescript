@@ -70,7 +70,7 @@ const Products = ({ limit }: Props) => {
     : allProducts;
 
   return (
-    <div className="pt-5 pb-16">
+    <div className="pt-8 pb-16">
       <div className="flex justify-between items-center mb-6">
         {limit ? (
           <h2 className="text-[#001a2e] text-4xl font-black uppercase">Featured Products</h2>
