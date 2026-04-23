@@ -53,7 +53,7 @@ const icons: IconsType[] = [
             {icons.map(({ icon: Icon, label, value }) => (
               <div key={label} className="flex items-center gap-4 bg-[#f0f5e8] rounded-xl px-5 py-4">
                 <div className="bg-[#001a2e] text-white p-2.5 rounded-full">
-                  <Icon className="text-lg" />
+                  {Icon && <Icon className="text-lg" />}
                 </div>
                 <div>
                   <p className="text-[#001a2e]/50 text-xs font-semibold uppercase tracking-wider">{label}</p>
